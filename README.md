@@ -1,4 +1,4 @@
-Notices app
+Notices app by David Garcia
 
 ## Clone the project
 git clone -b master https://github.com/dagamo/notices_app.git
