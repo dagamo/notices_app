@@ -9,7 +9,7 @@ npm install
 ## Run the project
 npm start
  
-## Uses
+## Created with
 1) Hooks
 2) Web components in the searchCard component location: components/searchCard/index
 
