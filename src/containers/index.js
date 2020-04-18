@@ -1,60 +1,66 @@
 import React, { useState, useEffect } from 'react';
-import axios from './../utils/Api';
-import { api_key } from './../constants/notices_api';
-import moment from 'moment';
+import { Container, Grid, CircularProgress } from '@material-ui/core';
+import { connect } from 'react-redux';
+//actions
+import { startGetNotices } from './../actions/notices';
 //components
-import Notice from './../component/article';
+import Notice from './../component/noticeCard/index';
+import SearchCard from './../component/searchCard/index';
 //styles
-import {styles} from './styles'
+import { styles } from './styles';
 
 const SearchView = (props) => {
-	const [ text, setText ] = useState('');
-	const [ isLoading, setLoading ] = useState(false);
-	const [ notices, setNotices ] = useState([]);
-
-	const handleOnChangeText = (event) => {
-		const { target: { value } } = event;
-		setText(value);
+	const { notice: { notices, isLoading } } = props;
+	
+	const handleSearch = (text) => {
+		const { startGetNotices } = props;
+		startGetNotices({text});
 	};
 
-	const handleSearch = () => {
-		let date = moment().format('YYYY-MM-DD');
-		setLoading(true);
-		let url = `everything?q=${text}&from=${date}&sortBy=publishedAt&apiKey=${api_key}`;
-		axios
-			.get(url)
-			.then(({ data: { articles } }) => {
-        setLoading(false)
-				setNotices(articles);
-			})
-			.catch((error) => {
-        setLoading(false)
-				console.log(error);
-			});
-	};
 
 	const renderNotices = () =>
 		notices.map((not, i) => {
-			const { author, title, description, urlToImage } = not;
+			const { author, title, description, urlToImage, publishedAt, content } = not;
 			const noticeProps = {
 				author,
 				title,
 				description,
-				urlToImage
+				urlToImage,
+				publishedAt,
+				content
 			};
 			return <Notice {...noticeProps} />;
 		});
-
+		console.log('notices', notices)
 	return (
-		<div>
-			<input type="text" value={text} onChange={handleOnChangeText} />
-			<button onClick={() => handleSearch()}>Buscar</button>
-			{isLoading && 'Buscando....'}
-			<div style={styles.noticeContainer}>
-      {notices.length !== 0 && renderNotices()}
-      </div>
+		<div style={styles.container}>
+			<Container>
+				<Grid container direction="column">
+					<Grid item sm={12}>
+						<SearchCard handleSearch={handleSearch} />
+					</Grid>
+					<Grid item sm={12} />
+				</Grid>
+				{isLoading && (
+					<Grid item sm={12}>
+						<CircularProgress color="secondary" />
+					</Grid>
+				)}
+				<Grid  container direction="row" style={styles.noticeContainer}>{notices && notices.length !== 0 && renderNotices()}</Grid>
+			</Container>
 		</div>
 	);
 };
 
-export default SearchView;
+const mapDispatchToProps = {
+	startGetNotices
+};
+
+const mapStateToProps = (state) => {
+	console.log(state)
+	return {
+		notice: state.notices
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchView);
