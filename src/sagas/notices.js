@@ -11,8 +11,8 @@ function* getNotices({ text }) {
 		} else {
 			const date = moment().format('YYYY-MM-DD');
 			const url = `everything?q=${text}&from=${date}&sortBy=publishedAt&apiKey=${api_key}`;
-			const result = yield call(axios.get(url));
-			yield put({ type: SET_NOTICES, payload: result.data.data.articles });
+			const result = yield axios.get(url);
+			yield put({ type: SET_NOTICES, payload: result.data.articles });
 		}
 	} catch (error) {
 		yield put({ type: FETCH_ERROR_NOTICES });

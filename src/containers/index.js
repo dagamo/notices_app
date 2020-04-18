@@ -35,8 +35,8 @@ const SearchView = (props) => {
 	return (
 		<div style={styles.container}>
 			<Container>
-				<Grid container direction="column">
-					<Grid item sm={12}>
+				<Grid container direction="column" >
+					<Grid item sm={12} alignItems="center" justify="center">
 						<SearchCard handleSearch={handleSearch} />
 					</Grid>
 					<Grid item sm={12} />
