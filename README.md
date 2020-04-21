@@ -11,5 +11,5 @@ npm start
  
 ## Created with
 1) Hooks
-2) Web components in the searchCard component location: components/searchCard/index
+2) Web components in the searchCard component location: webComponents/searchCard/index
 
