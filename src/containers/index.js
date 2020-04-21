@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { startGetNotices } from './../actions/notices';
 //components
 import Notice from './../component/noticeCard/index';
-import SearchCard from './../component/searchCard/index';
+import SearchCard from './../webComponents/searchCard/index';
 //styles
 import { styles } from './styles';
 

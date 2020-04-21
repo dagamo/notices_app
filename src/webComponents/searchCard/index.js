@@ -13,10 +13,10 @@ class SearchView extends React.Component {
 		handleSearch(value);
 		this.refs.addButton.addEventListener('click', (e) => {
 			const { value } = this.refs.firstName;
-			if(value.length < 50){
+			if (value.length < 50) {
 				return handleSearch(value);
 			}
-		alert('El texto debe ser menor a 50 caracteres')
+			alert('El texto debe ser menor a 50 caracteres');
 		});
 	}
 
