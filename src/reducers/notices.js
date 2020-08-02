@@ -1,7 +1,8 @@
 import { FETCH_START_NOTICES, SET_NOTICES, FETCH_ERROR_NOTICES } from './../constants/actionTypes';
+
 const commonState = {
 	isLoading: false,
-	notices: [],
+	data: [],
 	message: ''
 };
 
@@ -10,8 +11,8 @@ export const notices = (state = commonState, action) => {
 		case FETCH_START_NOTICES: {
 			return {
 				...state,
-        isLoading: true,
-        message:''
+				isLoading: true,
+				message: ''
 			};
 		}
 		case SET_NOTICES: {
@@ -25,7 +26,7 @@ export const notices = (state = commonState, action) => {
 			return {
 				...state,
 				isLoading: false,
-				notices:[],
+				notices: [],
 				message: 'Ha ocurrido un error del servidor'
 			};
 		}
